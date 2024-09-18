@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
+  <meta name="description" content="Enjoy the music.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="20 Essentials 🎵">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta property="og:description" content="Enjoy the music.">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="20 Essentials 🎵">
+  <meta property="twitter:url" content="">
+  <meta property="twitter:image" content="">
+  <meta property="twitter:description" content="Enjoy the music.">
+  <style>
+    *,
+    *::after,
+    *::before {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif, Geneva, Tahoma;
+      font-weight: 600;
+      user-select: none;
+      cursor: auto;
+    }
+
+    :root {
+      --image-1: url('assets/n1.avif');
+      --image-2: url('assets/n2.avif');
+    }
+
+    html {
+      scrollbar-width: thin;
+      min-width: 350px;
+      max-width: 1600px;
+      display: block;
+      margin-inline: auto;
+      background-color: black;
+      align-content: center;
+      height: 100vh;
+      scroll-behavior: smooth;
+    }
+
+    .am-modal {
+      margin: auto;
+      border: none;
+      width: 270px;
+      height: 200px;
+      padding: 1rem;
+      padding-top: 2rem;
+      background-color: #111;
+      box-shadow: 0 0 1px #0008;
+      border-radius: 20px;
+      color: gray;
+      scrollbar-width: thin;
+
+
+      h3 {
+        font-size: .9rem;
+      }
+
+      .cerrar {
+        position: absolute;
+        top: .8rem;
+        right: .8rem;
+        padding: .3rem;
+        border: none;
+        border-radius: 50%;
+        transform: scale(.9);
+      }
+
+      .container-modal {
+        display: flex;
+        flex-direction: column;
+        margin-top: .5rem;
+
+
+        .fila {
+          display: flex;
+          column-gap: .2rem;
+          padding: .5rem;
+
+          input {
+            accent-color: lime;
+          }
+        }
+
+
+        label {
+          color: white;
+          font-size: .8rem;
+          background-color: transparent;
+          width: 100%;
+          align-content: center;
+        }
+
+        abbr {
+          font-size: .8rem;
+        }
+      }
+
+
+      &::backdrop {
+        background-image: linear-gradient(to top,
+            #2228 20%,
+            #4448 40%);
+      }
+
+      input[type=checkbox] {
+        margin-right: .5rem;
+
+      }
+    }
+
+    .myHeader {
+      display: block;
+      height: 5rem;
+      position: relative;
+      z-index: 5;
+      background-image: linear-gradient(45deg,
+          var(--color1, #ee82ee),
+          var(--color2, #87ceeb),
+          var(--color3, #00ff7f));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+
+
+      img {
+        inline-size: 3rem;
+        block-size: 3rem;
+      }
+    }
+
+    .myNav {
+      display: flex;
+      width: 100%;
+      height: 2rem;
+      background-color: #222;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: .5rem;
+      position: sticky;
+      top: -1px;
+      z-index: 99999;
+
+      a {
+        height: 100%;
+        margin-inline: 9px;
+
+
+        &:hover,
+        &.nav-btn-active {
+          svg {
+            fill: #fff;
+          }
+        }
+
+        * {
+          pointer-events: none;
+        }
+      }
+
+      .nav-playbutton {
+        svg {
+          scale: .9;
+        }
+      }
+
+      .nav-list-momentary {
+        position: relative;
+
+        .tooltip {
+          transform: scale(0);
+          position: absolute;
+          z-index: 200;
+          pointer-events: auto;
+          cursor: pointer;
+          top: 150%;
+          right: -36px;
+          width: 220px;
+          padding: .5rem .5rem;
+          background-color: #00f;
+          color: white;
+          font-size: .9rem;
+          text-align: center;
+          transition: transform .3s ease-in-out;
+
+          &.tooltip-active {
+            transform: scale(.8);
+          }
+
+          .triangle {
+            width: 40px;
+            height: 20px;
+            background-color: #00f;
+            position: absolute;
+            right: 10px;
+            top: -10px;
+            clip-path: polygon(0% 100%, 50% 0, 100% 100%);
+          }
+        }
+      }
+
+      svg {
+        fill: #999;
+        width: 18px;
+        height: 18px;
+        transition: .3s;
+      }
+
+
+
+      .nav-arrow-down {
+        display: none;
+      }
+    }
+
+    .background-container {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+
+
+      .star-1 {
+        width: var(--size);
+        height: var(--size);
+        background-color: #fff;
+        box-shadow: var(--shadow-layer);
+        position: absolute;
+        z-index: -1;
+        animation: risingStars var(--duration) linear infinite;
+      }
+    }
+
+    main {
+      width: 100%;
+      max-width: 1600px;
+      min-height: max-content;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-rows: repeat(auto-fit, auto);
+      align-content: start;
+      gap: 1rem;
+
+      .card {
+        height: 150px;
+        min-height: max-content;
+        height: auto;
+        display: flex;
+        border-radius: 1rem;
+        color: var(--color3, #00ff7f);
+        animation: boxShadowMove 5s linear infinite alternate;
+
+        .img {
+          width: 90%;
+          height: 90%;
+          border-radius: 1rem;
+          background-size: cover;
+          aspect-ratio: 1;
+          position: relative;
+
+          .input-range {
+            width: 100%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%) scale(.7);
+            bottom: 3px;
+            accent-color: chartreuse;
+            display: none;
+          }
+        }
+
+        .card-left {
+          width: 55%;
+          display: flex;
+          flex-wrap: wrap;
+          place-content: center;
+        }
+
+        .card-right {
+          width: 45%;
+          overflow: hidden;
+          border-radius: 1rem;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          display: flex;
+          flex-direction: column;
+
+          .card-right-top {
+            font-size: clamp(0.625rem, 0.555rem + 0.32vw, 0.875rem);
+            height: 50%;
+            margin-top: .7rem;
+            margin-inline: auto;
+            max-width: 80%;
+            text-align: center;
+            text-wrap: balance;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+          }
+
+          .card-right-down {
+            height: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            margin-bottom: .7rem;
+
+            .card-right-buttons {
+              display: grid;
+              margin-inline: auto;
+              grid-template-columns: repeat(3, auto);
+              justify-content: center;
+              gap: .7rem;
+
+              button {
+                background-color: black;
+                width: 1.4rem;
+                height: 1.4rem;
+                border-radius: 50%;
+                align-content: center;
+                outline: none;
+                border: none;
+                transition: background-color .3s linear;
+                pointer-events: auto;
+
+                * {
+                  pointer-events: none !important;
+                }
+
+                &:hover,
+                &.card-btn-active {
+                  background-color: #fff;
+
+                  svg {
+                    filter: invert(1);
+                  }
+                }
+
+
+                &.blocked {
+                  pointer-events: none;
+                }
+
+                svg {
+                  all: initial;
+                  display: block;
+                  margin-inline: auto;
+                  fill: #fff;
+                  width: .8rem;
+                  height: .8rem;
+                  transition: .3s ease filter;
+                }
+              }
+
+              .card-playbutton,
+              .card-downloadbutton {
+                svg {
+                  scale: .8;
+                }
+              }
+
+              .card-downloadbutton {
+                pointer-events: none;
+
+                a {
+                  display: block;
+                  width: 100%;
+                  height: 100%;
+                  background-color: transparent;
+                  border-radius: inherit;
+                  align-content: center;
+                }
+
+                a.pointerEventsActivo {
+                  pointer-events: auto !important;
+                }
+              }
+
+              .card-playlistbutton {
+                &.buttonConPointerEvents {
+                  pointer-events: auto !important;
+                }
+              }
+
+              .playlistbutton {
+                svg {
+                  scale: 1.2;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .card:nth-child(even) {
+        color: var(--color1, #ee82ee);
+        animation: boxShadowMove 5s linear infinite alternate-reverse;
+
+        .img {
+          background-image: var(--image-1);
+        }
+      }
+
+      .card:nth-child(odd) .img {
+        background-image: var(--image-2);
+      }
+
+      .card.targeado:target {
+        color: red;
+        scroll-margin-top: 3rem;
+      }
+
+    }
+
+    @keyframes boxShadowMove {
+      0% {
+        box-shadow: 0 0 10px currentColor inset;
+      }
+
+      100% {
+        box-shadow: 0 0 300px currentColor inset;
+      }
+    }
+
+    @keyframes recorrer {
+      0% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(-90%, 0);
+      }
+
+      100% {
+        transform: translate(15%, 0);
+      }
+    }
+
+    @keyframes risingStars {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-100vh);
+      }
+    }
+
+    @keyframes change {
+      from {
+        scale: 0;
+        opacity: 0;
+        translate: 50px;
+      }
+
+      to {
+        scale: 1;
+        opacity: 1;
+        translate: 0;
+      }
+    }
+
+    @media (width <=546px) {
+      main {
+        .card {
+          transition: transform .3s ease, opacity .3s ease-in-out, scale .3s ease;
+
+          .card-right {
+            .card-right-top {
+              font-size: clamp(0.75rem, 0.6538rem + 0.44vw, 1.0938rem);
+            }
+
+            .card-right-down {
+              .card-right-buttons {
+                .card-infinitybutton {
+
+                  &:hover {
+                    background-color: black;
+
+                    svg {
+                      filter: invert(0);
+                    }
+                  }
+
+                  &.card-btn-active {
+                    background-color: #fff;
+
+                    svg {
+                      filter: invert(1);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .card:nth-child(even) {
+          animation: boxShadowMove 5s linear alternate infinite, change auto linear forwards;
+          animation-timeline: auto, view();
+          animation-composition: add;
+          animation-range: cover -50% cover 5%;
+        }
+
+        .card:nth-child(odd) {
+          animation: boxShadowMove 5s linear alternate-reverse infinite, change auto linear forwards;
+          animation-timeline: auto, view();
+          animation-composition: add;
+          animation-range: cover -50% cover 5%;
+        }
+      }
+    }
+
+    @media (548px <=width < 814px) {
+      main {
+
+        .card:nth-child(2),
+        .card:nth-child(3),
+        .card:nth-child(6),
+        .card:nth-child(7),
+        .card:nth-child(10),
+        .card:nth-child(11),
+        .card:nth-child(14),
+        .card:nth-child(15),
+        .card:nth-child(18),
+        .card:nth-child(19) {
+          color: var(--color1, #ee82ee);
+          animation: boxShadowMove 5s linear infinite alternate-reverse;
+
+          .img {
+            background-image: var(--image-1);
+          }
+        }
+
+        .card:nth-child(1),
+        .card:nth-child(4),
+        .card:nth-child(5),
+        .card:nth-child(8),
+        .card:nth-child(9),
+        .card:nth-child(12),
+        .card:nth-child(13),
+        .card:nth-child(16),
+        .card:nth-child(17),
+        .card:nth-child(20) {
+          color: var(--color3, #00ff7f);
+          animation: boxShadowMove 5s linear infinite alternate;
+
+          .img {
+            background-image: var(--image-2);
+          }
+        }
+      }
+    }
+
+    @media (1080px <=width < 1346px) {
+      main {
+
+        .card:nth-child(2),
+        .card:nth-child(4),
+        .card:nth-child(5),
+        .card:nth-child(7),
+        .card:nth-child(10),
+        .card:nth-child(12),
+        .card:nth-child(13),
+        .card:nth-child(15),
+        .card:nth-child(18),
+        .card:nth-child(20) {
+          color: var(--color1, #ee82ee);
+          animation: boxShadowMove 5s linear infinite alternate-reverse;
+
+          .img {
+            background-image: var(--image-1);
+          }
+        }
+
+        .card:nth-child(1),
+        .card:nth-child(3),
+        .card:nth-child(6),
+        .card:nth-child(8),
+        .card:nth-child(9),
+        .card:nth-child(11),
+        .card:nth-child(14),
+        .card:nth-child(16),
+        .card:nth-child(17),
+        .card:nth-child(19) {
+          color: var(--color3, #00ff7f);
+          animation: boxShadowMove 5s linear infinite alternate;
+
+          .img {
+            background-image: var(--image-2);
+          }
+        }
+      }
+    }
+
+    @media (width <=1080px) {
+      .myNav {
+        .nav-arrow-down {
+          display: block;
+        }
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="myHeader" >
+    <img src="assets/favicon.png" alt="logo">
+  </header>
+
+  <dialog class="am-modal">
+    <h3 class="tituto-modal">Save the audio in...</h3>
+    <button class="cerrar">❌</button>
+    <div class="container-modal">
+
+    </div>
+
+    <template class="template-modal-fila">
+      <article class="fila">
+        <input type="checkbox" id=""><label for=""></label>
+        <abbr><output>0</output>/20</abbr>
+      </article>
+    </template>
+  </dialog>
+
+
+  <nav class="myNav">
+    <a href='#'>
+      <svg>
+        <use href='assets/svgSprite.svg#homebutton'></use>
+      </svg>
+    </a>
+    <a href='javascript:void(0)' class="nav-random-button">
+      <svg>
+        <use href='assets/svgSprite.svg#randombutton'></use>
+      </svg>
+    </a>
+    <a href='javascript:void(0)' class="nav-play-button">
+      <svg>
+        <use href='assets/svgSprite.svg#playbutton'></use>
+      </svg>
+    </a>
+    <a href='javascript:void(0)' onclick="location.replace(localStorage.getItem('formUrl'))">
+      <svg>
+        <use href='assets/svgSprite.svg#reloadbutton'></use>
+      </svg>
+    </a>
+    <a href='javascript:void(0)' class="nav-arrow-down">
+      <svg>
+        <use href='assets/svgSprite.svg#arrowdownbutton'></use>
+      </svg>
+    </a>
+    <a href='javascript:void(0)' class="nav-list-momentary">
+      <svg>
+        <use href='assets/svgSprite.svg#listbutton'></use>
+      </svg>
+      <article class="tooltip">
+        Choose and press here ▶️
+        <div class="triangle"></div>
+      </article>
+    </a>
+  </nav>
+
+  <main>
+    <article class="card" id="card0">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card1">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card2">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card3">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card4">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card5">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card6">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card7">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card8">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card9">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card10">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card11">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card12">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card13">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card14">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card15">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card16">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card17">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card18">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton buttonConPointerEvents">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+    <article class="card" id="card19">
+      <div class="card-left">
+        <aside class="img">
+          <input type="range" step="0.1" value="0" class="input-range">
+        </aside>
+      </div>
+      <div class="card-right">
+        <section class="card-right-top">
+        </section>
+        <div class="card-right-down">
+          <section class="card-right-buttons">
+            <button class="card-playbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playbutton"></use>
+              </svg>
+            </button>
+            <button class="card-pausebutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#pausebutton"></use>
+              </svg>
+            </button>
+            <button class="card-stopbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#stopbutton"></use>
+              </svg>
+            </button>
+            <button class="card-infinitybutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#infinitybutton"></use>
+              </svg>
+            </button>
+            <button class="card-downloadbutton">
+              <a class="anchor-download pointerEventsActivo" href="" download="">
+                <svg>
+                  <use href="assets/svgSpriteCardMusical.svg#downloadbutton"></use>
+                </svg>
+              </a>
+            </button>
+            <button class="card-playlistbutton">
+              <svg>
+                <use href="assets/svgSpriteCardMusical.svg#playlistbutton"></use>
+              </svg>
+            </button>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <script type="module" src="index.js"></script>
+</body>
+<section class="background-container">
+  <div class="star-1 star"></div>
+  <div class="star-2 star"></div>
+  <div class="star-3 star"></div>
+</section>
+
+</html>
